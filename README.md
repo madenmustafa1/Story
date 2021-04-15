@@ -1,6 +1,6 @@
 # Story
 Story source codes
-
+ 
 ## TR
 Proje içerisinde *Firebase / google-services.json* dosyası bulunmamaktadır. 
 Çalışması için https://firebase.google.com/ adresinden kendi veritabanınızı oluşturup *google-services.json* dosyasını projenize eklemeniz gerekmektedir.
