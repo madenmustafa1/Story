@@ -1,5 +1,7 @@
 # Story
 Story source codes
+
+Figma Design: https://www.figma.com/file/f7uMjw1oGzwe3jBrhxq0Id/story?node-id=1%3A3
  
 ## TR
 Proje içerisinde *Firebase / google-services.json* dosyası bulunmamaktadır. 
