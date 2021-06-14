@@ -1,117 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/fragmentShowStory">
+    app:startDestination="@id/showStoryFragment">
 
     <fragment
-        android:id="@+id/fragmentShowStory"
-        android:name="com.ms.story.STORY.FragmentShowStory"
+        android:id="@+id/showStoryFragment"
+        android:name="com.maden.story.view.ShowStoryFragment"
         android:label="fragment_show_story"
         tools:layout="@layout/fragment_show_story" >
         <action
-            android:id="@+id/action_fragmentShowStory_to_fragmentAddStory"
-            app:destination="@id/fragmentAddStory" />
+            android:id="@+id/action_showStoryFragment_to_addStoryFragment"
+            app:destination="@id/addStoryFragment" />
         <action
-            android:id="@+id/action_fragmentShowStory_to_userProfile"
-            app:destination="@id/userProfile" />
+            android:id="@+id/action_showStoryFragment_to_otherUserProfileFragment"
+            app:destination="@id/otherUserProfileFragment" />
         <action
-            android:id="@+id/action_fragmentShowStory_to_searchFragment"
+            android:id="@+id/action_showStoryFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
-            android:id="@+id/action_fragmentShowStory_to_otherUserProfile"
-            app:destination="@id/otherUserProfile"
-
-            />
+            android:id="@+id/action_showStoryFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
     <fragment
-        android:id="@+id/fragmentAddStory"
-        android:name="com.ms.story.STORY.FragmentAddStory"
-        android:label="fragment__addstory"
-        tools:layout="@layout/fragment__addstory" >
+        android:id="@+id/addStoryFragment"
+        android:name="com.maden.story.view.AddStoryFragment"
+        android:label="fragment_add_story"
+        tools:layout="@layout/fragment_add_story" >
         <action
-            android:id="@+id/action_fragmentAddStory_to_fragmentShowStory"
-            app:destination="@id/fragmentShowStory" />
+            android:id="@+id/action_addStoryFragment_to_otherUserProfileFragment"
+            app:destination="@id/otherUserProfileFragment" />
         <action
-            android:id="@+id/action_fragmentAddStory_to_userProfile"
-            app:destination="@id/userProfile" />
+            android:id="@+id/action_addStoryFragment_to_showStoryFragment"
+            app:destination="@id/showStoryFragment" />
         <action
-            android:id="@+id/action_fragmentAddStory_to_searchFragment"
+            android:id="@+id/action_addStoryFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
-            android:id="@+id/action_fragmentAddStory_to_otherUserProfile"
-            app:destination="@id/otherUserProfile" />
+            android:id="@+id/action_addStoryFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
     <fragment
-        android:id="@+id/bottomButtons"
-        android:name="com.ms.story.STORY.BottomButtons"
-        android:label="fragment_bottom_buttons"
-        tools:layout="@layout/fragment_bottom_buttons" />
-    <fragment
-        android:id="@+id/fragmentSignIn"
-        android:name="com.ms.story.SIGN.FragmentSignIn"
-        android:label="FragmentSignIn" />
-    <fragment
-        android:id="@+id/fragmentSignUp"
-        android:name="com.ms.story.SIGN.FragmentSignUp"
-        android:label="FragmentSignUp" />
-    <fragment
-        android:id="@+id/userProfile"
-        android:name="com.ms.story.PROFILE.UserProfile"
-        android:label="fragment_user_profile"
-        tools:layout="@layout/fragment_user_profile" >
-        <action
-            android:id="@+id/action_userProfile_to_fragmentShowStory"
-            app:destination="@id/fragmentShowStory" />
-        <action
-            android:id="@+id/action_userProfile_to_fragmentAddStory"
-            app:destination="@id/fragmentAddStory" />
-        <action
-            android:id="@+id/action_userProfile_to_searchFragment2"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_userProfile_to_otherUserProfile"
-            app:destination="@id/otherUserProfile" />
-    </fragment>
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.ms.story.SEARCH.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
-        <action
-            android:id="@+id/action_searchFragment_to_userProfile2"
-            app:destination="@id/userProfile" />
-        <action
-            android:id="@+id/action_searchFragment_to_fragmentAddStory"
-            app:destination="@id/fragmentAddStory" />
-        <action
-            android:id="@+id/action_searchFragment_to_fragmentShowStory"
-            app:destination="@id/fragmentShowStory" />
-        <action
-            android:id="@+id/action_searchFragment_to_otherUserProfile"
-            app:destination="@id/otherUserProfile" />
-    </fragment>
-    <fragment
-        android:id="@+id/otherUserProfile"
-        android:name="com.ms.story.PROFILE.OtherUserProfile"
+        android:id="@+id/otherUserProfileFragment"
+        android:name="com.maden.story.view.OtherUserProfileFragment"
         android:label="fragment_other_user_profile"
         tools:layout="@layout/fragment_other_user_profile" >
         <action
-            android:id="@+id/action_otherUserProfile_to_fragmentShowStory"
-            app:destination="@id/fragmentShowStory" />
+            android:id="@+id/action_otherUserProfileFragment_to_addStoryFragment"
+            app:destination="@id/addStoryFragment" />
         <action
-            android:id="@+id/action_otherUserProfile_to_userProfile"
-            app:destination="@id/userProfile" />
+            android:id="@+id/action_otherUserProfileFragment_to_showStoryFragment"
+            app:destination="@id/showStoryFragment" />
         <action
-            android:id="@+id/action_otherUserProfile_to_searchFragment"
+            android:id="@+id/action_otherUserProfileFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
-            android:id="@+id/action_otherUserProfile_to_fragmentAddStory"
-            app:destination="@id/fragmentAddStory" />
+            android:id="@+id/action_otherUserProfileFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
         <argument
-            android:name="userEmail"
+            android:name="otherUserEmail"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.maden.story.view.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_showStoryFragment"
+            app:destination="@id/showStoryFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_otherUserProfileFragment"
+            app:destination="@id/otherUserProfileFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_addStoryFragment"
+            app:destination="@id/addStoryFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.maden.story.view.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_addStoryFragment"
+            app:destination="@id/addStoryFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_otherUserProfileFragment"
+            app:destination="@id/otherUserProfileFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_showStoryFragment"
+            app:destination="@id/showStoryFragment" />
     </fragment>
 </navigation>

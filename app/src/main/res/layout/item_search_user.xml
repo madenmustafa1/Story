@@ -1,41 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="196dp"
-
-    android:layout_height="160dp">
+    android:layout_width="160dp"
+    android:layout_height="160dp"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/searchUserProfile"
-        android:layout_width="107dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/userphoto" />
+        android:src="@drawable/userphoto" />
 
     <TextView
         android:id="@+id/searchNameSurname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
+        android:layout_marginTop="2dp"
         android:text="Name Surname"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/searchFollowers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
         android:text="Followers"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textAlignment="center"
+        android:layout_marginTop="2dp"
+        android:layout_gravity="center" />
+
+</LinearLayout>
