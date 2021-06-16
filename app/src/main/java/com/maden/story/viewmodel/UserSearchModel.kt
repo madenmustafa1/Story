@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 
 class UserSearchModel : ViewModel() {
 
+    //NOT VAR OKU. ÖNEMLİ !!
     private var db = Firebase.firestore
 
     private val searchList = arrayListOf<SearchData>()
@@ -32,7 +33,7 @@ class UserSearchModel : ViewModel() {
                     searchList.clear()
 
                     for (document in it) {
-
+                        //FOLLOWERS OLACAK !!!!!!!
                         val followed = document["followed"] as List<*>
                         val nameSurname = document["name"].toString() +
                                 " " + document["surname"].toString()

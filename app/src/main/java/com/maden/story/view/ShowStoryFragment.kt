@@ -44,6 +44,7 @@ class ShowStoryFragment : Fragment() {
         showViewModel = ViewModelProvider(this).get(ShowStoryModel::class.java)
         showViewModel.getStory()
 
+
         showStoryRecyclerView.layoutManager = LinearLayoutManager(context)
         showStoryRecyclerView.adapter = showAdapter
 
@@ -56,7 +57,6 @@ class ShowStoryFragment : Fragment() {
 
             it?.let {
                 showAdapter.updateShowList(it)
-                println(it)
             }
         })
     }

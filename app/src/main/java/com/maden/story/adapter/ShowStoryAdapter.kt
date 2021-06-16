@@ -18,6 +18,8 @@ import com.maden.story.view.SearchFragmentDirections
 import com.maden.story.view.ShowStoryFragmentDirections
 import kotlinx.android.synthetic.main.item_show_story.view.*
 
+
+//Layout'tan da değiştirilecek.
 class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
     RecyclerView.Adapter<ShowStoryAdapter.ShowViewHolder>() {
 

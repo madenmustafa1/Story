@@ -28,6 +28,8 @@ class ShowStoryModel : ViewModel() {
         dbRef.get().addOnSuccessListener {
 
             if (it["followed"] != null) {
+                val i = it
+
                 followed = it["followed"] as List<String>
                 nameSurname = null
 
@@ -44,6 +46,7 @@ class ShowStoryModel : ViewModel() {
                                     .get().addOnSuccessListener { it ->
 
                                         for (document in it) {
+
                                             nameSurname =
                                                 name["name"].toString() + " " + name["surname"].toString()
 
@@ -78,8 +81,6 @@ class ShowStoryModel : ViewModel() {
                                                 }
                                             }
                                              */
-
-
                                         }
                                     }
                             }
@@ -88,6 +89,4 @@ class ShowStoryModel : ViewModel() {
             }
         }
     }
-
-
 }
