@@ -45,10 +45,6 @@ class UserProfileFragment : Fragment() {
         userProfileRecyclerView.layoutManager = LinearLayoutManager(context)
         userProfileRecyclerView.adapter = profileAdapter
 
-
-
-
-
         observeMyProfileData()
     }
 

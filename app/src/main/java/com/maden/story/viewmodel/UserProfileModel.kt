@@ -16,8 +16,8 @@ class UserProfileModel: ViewModel() {
     private var db = Firebase.firestore
     private var auth = Firebase.auth
 
-    private val storage = FirebaseStorage.getInstance()
-    val reference = storage.reference
+    //private val storage = FirebaseStorage.getInstance()
+    //val reference = storage.reference
 
     val profileDataClass = MutableLiveData<List<ProfileData>>()
     val profileAdapterDataClass = MutableLiveData<List<ProfileAdapterData>>()
@@ -55,15 +55,6 @@ class UserProfileModel: ViewModel() {
     }
     //Query.Direction.DESCENDING
     private fun getMyPost() {
-        val postReff = db.collection("Story")
-        postReff.orderBy("date", Query.Direction.DESCENDING)
-            .get().addOnSuccessListener {
-                for (document in it){
-                    //println(document["story"])
-
-                }
-            }
-
 
         val postRef = db.collection("Story")
         postRef//.whereEqualTo("email", auth.currentUser!!.email)

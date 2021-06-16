@@ -19,6 +19,7 @@ class UserSearchModel : ViewModel() {
     val searchDataClass = MutableLiveData<List<SearchData>>()
 
     fun userSearch(text: String) {
+
         viewModelScope.launch {
             delay(500)
             searchList.clear()
