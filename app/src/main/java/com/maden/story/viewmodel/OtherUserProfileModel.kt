@@ -1,5 +1,6 @@
 package com.maden.story.viewmodel
 
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
@@ -7,11 +8,9 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.maden.story.model.OtherProfileAdapterData
 import com.maden.story.model.OtherProfileData
-import com.maden.story.model.ProfileAdapterData
-import com.maden.story.model.ProfileData
+
 
 
 class OtherUserProfileModel : ViewModel() {
@@ -99,7 +98,7 @@ class OtherUserProfileModel : ViewModel() {
             }
     }
 
-    fun followUser(email: String){
+    fun followUser(email: String) {
         val followRef = db.collection("Profile")
             .document(auth.currentUser?.email.toString())
 
@@ -107,6 +106,7 @@ class OtherUserProfileModel : ViewModel() {
             if (uFollowing.value == "false") {
                 followRef.update("followed", FieldValue.arrayUnion(email))
                 uFollowing.value = "true"
+
             } else {
                 followRef.update("followed", FieldValue.arrayRemove(email))
                 uFollowing.value = "false"

@@ -5,18 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.maden.story.R
 import com.maden.story.adapter.OtherUserProfileAdapter
-import com.maden.story.adapter.UserProfileAdapter
 import com.maden.story.viewmodel.OtherUserProfileModel
-import com.maden.story.viewmodel.UserProfileModel
 import kotlinx.android.synthetic.main.fragment_other_user_profile.*
-import kotlinx.android.synthetic.main.fragment_user_profile.*
-import kotlinx.android.synthetic.main.fragment_user_profile.userProfileRecyclerView
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class OtherUserProfileFragment : Fragment() {
@@ -37,8 +36,10 @@ class OtherUserProfileFragment : Fragment() {
     private val otherProfileAdapter = OtherUserProfileAdapter(arrayListOf())
     private var otherUserEmail: String? = null
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.title = ""
 
         arguments?.let {
             otherUserEmail = OtherUserProfileFragmentArgs.fromBundle(it).otherUserEmail
@@ -46,7 +47,7 @@ class OtherUserProfileFragment : Fragment() {
 
         otherProfileModel = ViewModelProvider(this).get(OtherUserProfileModel::class.java)
 
-        if (otherUserEmail != null && otherUserEmail != ""){
+        if (otherUserEmail != null && otherUserEmail != "") {
             otherProfileModel.getOtherUserProfile(otherUserEmail!!)
         }
 
@@ -55,35 +56,20 @@ class OtherUserProfileFragment : Fragment() {
 
         observeOtherProfileData()
 
-        otherFollowButton.setOnClickListener {
-            otherProfileModel.followUser(otherUserEmail!!)
-
-            //Coroutines gelecek!!!!!!!!!!!!!!!!!
-            //LifecycleCoroutineScope
-
-            otherProfileModel.uFollowing.value?.let {
-
-                if(otherProfileModel.uFollowing.value == "false"){
-                    otherFollowButton.text = "Follow"
-                    otherProfileModel.uFollowing.value = "false"
-                } else {
-                    otherFollowButton.text = "Unfollow"
-                    otherProfileModel.uFollowing.value = "true"
-                }
-            }
-        }
+        otherFollowButton.setOnClickListener { followControl() }
     }
 
-    private fun observeOtherProfileData(){
+    private fun observeOtherProfileData() {
         otherProfileModel.otherProfileDataClass.observe(viewLifecycleOwner, Observer {
             it?.let {
                 otherUserProfileNameSurname.text = it[0].userNameSurname
                 otherUserProfileFollowedText.text = it[0].followed
                 otherUserProfileFollowerText.text = it[0].follower
                 otherUserProfileStoryText.text = it[0].storySize
+                (activity as AppCompatActivity)
+                    .supportActionBar?.title = "@"+ it[0].username
 
-
-                if (it[0].areUFollowing == "false"){
+                if (it[0].areUFollowing == "false") {
                     otherFollowButton.text = "Follow"
                 } else {
                     otherFollowButton.text = "Unfollow"
@@ -96,5 +82,22 @@ class OtherUserProfileFragment : Fragment() {
                 otherProfileAdapter.updateOtherProfile(it)
             }
         })
+    }
+
+    private fun followControl() {
+        otherProfileModel.followUser(otherUserEmail!!)
+        viewLifecycleOwner.lifecycleScope.launch {
+            otherProfileModel.uFollowing.value?.let {
+                delay(500)
+                if (otherProfileModel.uFollowing.value == "false") {
+                    otherFollowButton.text = "Follow"
+                    otherProfileModel.uFollowing.value = "false"
+                } else {
+
+                    otherFollowButton.text = "Unfollow"
+                    otherProfileModel.uFollowing.value = "true"
+                }
+            }
+        }
     }
 }

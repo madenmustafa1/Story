@@ -80,8 +80,8 @@ class UserProfileModel: ViewModel() {
                         val postList = arrayListOf<ProfileAdapterData>(myPost)
                         profileAdapterDataClass.value = postList
                     }
-
                 }
             }
     }
+
 }

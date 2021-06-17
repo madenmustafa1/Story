@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@drawable/home" />
+        <item
+            android:id="@+id/nav_search"
+            android:title="Search"
+            android:icon="@drawable/search" />
+        <item
+            android:id="@+id/nav_addStory"
+            android:title="Add Story"
+            android:icon="@drawable/plusicon" />
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile"
+            android:icon="@drawable/user" />
+        <item
+            android:id="@+id/signOut"
+            android:title="Sign out"
+            android:icon="@drawable/user" />
+
+    </group>
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:title="Profile" />
+
+        <menu>
+            <item
+                android:id="@+id/signOuts"
+                android:title="Sign outs"
+                android:icon="@drawable/user" />
+        </menu>
+
+    </group>
+
+</menu>

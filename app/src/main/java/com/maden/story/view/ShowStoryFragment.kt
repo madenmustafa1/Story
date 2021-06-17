@@ -5,13 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.maden.story.R
 import com.maden.story.activity.GLOBAL_CURRENT_FRAGMENT
 import com.maden.story.adapter.ShowStoryAdapter
@@ -39,6 +36,7 @@ class ShowStoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).supportActionBar?.title = "Story"
         GLOBAL_CURRENT_FRAGMENT = "show_story"
 
         showViewModel = ViewModelProvider(this).get(ShowStoryModel::class.java)
