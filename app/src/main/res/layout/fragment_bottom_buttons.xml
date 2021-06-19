@@ -7,7 +7,11 @@
     tools:context=".activity.BottomButtons"
     android:orientation="horizontal"
     android:gravity="center"
-    android:layout_marginBottom="1dp">
+    android:layout_marginBottom="1dp"
+
+
+    android:background="@color/white"
+    >
 
     <ImageView
         android:id="@+id/homeButton"

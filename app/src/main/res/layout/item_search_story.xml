@@ -20,19 +20,23 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageViewShowStory"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="12dp"
+            android:id="@+id/imageViewSearchStory"
+            android:layout_width="45dp"
+            android:layout_height="80dp"
             android:layout_marginStart="12dp"
-            android:src="@drawable/userphoto">
+            android:layout_marginTop="0dp"
+            android:foreground="@drawable/rounded_userprofile_photo"
+            android:src="@drawable/ic_profile_place_holder"
+            android:scaleType="centerCrop"
+            android:downloadUrl="@{searchData.downloadUrl}"
+            >
         </ImageView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="30dp"
             android:hint="User Name"
             android:text="@{searchData.userNameSurname}"
             android:textSize="14sp"
@@ -80,7 +84,7 @@
             android:gravity="clip_vertical"
             android:clickable="false"
             android:focusable="false"
-            android:inputType="textNoSuggestions"
+            android:inputType="textMultiLine|textNoSuggestions"
 
             android:overScrollMode="always"
             android:scrollbarStyle="insideInset"

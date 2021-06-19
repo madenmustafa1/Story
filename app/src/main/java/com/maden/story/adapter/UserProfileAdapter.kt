@@ -6,9 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.maden.story.R
 import com.maden.story.databinding.ItemProfileStoryBinding
+import com.maden.story.model.DownloadPhotoUrl
 import com.maden.story.model.ProfileAdapterData
 
-class UserProfileAdapter(private val profileStoryList: ArrayList<ProfileAdapterData>)
+class UserProfileAdapter(private val profileStoryList: ArrayList<ProfileAdapterData>,
+                         private var downloadUrl: DownloadPhotoUrl)
     : RecyclerView.Adapter<UserProfileAdapter.ProfileViewHolder>(){
 
 
@@ -29,6 +31,7 @@ class UserProfileAdapter(private val profileStoryList: ArrayList<ProfileAdapterD
     override fun onBindViewHolder(holder: ProfileViewHolder, position: Int) {
         //holder.view.
         holder.view.profileData = profileStoryList[position]
+        holder.view.profilePhoto = downloadUrl
     }
 
     override fun getItemCount(): Int {
@@ -37,6 +40,11 @@ class UserProfileAdapter(private val profileStoryList: ArrayList<ProfileAdapterD
 
     fun updateMyProfile(newList: List<ProfileAdapterData>){
         profileStoryList.addAll(newList)
+        notifyDataSetChanged()
+    }
+
+    fun downloadPhoto(url: DownloadPhotoUrl){
+        downloadUrl = url
         notifyDataSetChanged()
     }
 }

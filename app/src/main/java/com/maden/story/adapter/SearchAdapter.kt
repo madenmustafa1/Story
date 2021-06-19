@@ -16,7 +16,6 @@ import com.maden.story.databinding.ItemSearchStoryBinding
 import com.maden.story.model.FeedData
 import com.maden.story.view.SearchFragmentDirections
 import kotlinx.android.synthetic.main.item_search_story.view.*
-import kotlinx.android.synthetic.main.item_show_story.view.imageViewShowStory
 import kotlinx.android.synthetic.main.item_show_story.view.likeButton
 
 class SearchAdapter(private val searchStoryList: ArrayList<FeedData>) :
@@ -68,7 +67,7 @@ class SearchAdapter(private val searchStoryList: ArrayList<FeedData>) :
                 }
             }
 
-        holder.itemView.imageViewShowStory.setOnClickListener {
+        holder.itemView.imageViewSearchStory.setOnClickListener {
             val emailRef = db.collection("Story")
 
             emailRef

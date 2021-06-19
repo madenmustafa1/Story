@@ -7,5 +7,6 @@ data class FeedData(
     val userStory: String?,
     val userLike: String?,
     val uuid: String?,
-    val userEmail_PNG: String?
+    val userEmail_PNG: String?,
+    val downloadUrl: String?
 )

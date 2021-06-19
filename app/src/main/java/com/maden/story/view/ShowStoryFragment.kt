@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.maden.story.R
 import com.maden.story.activity.GLOBAL_CURRENT_FRAGMENT
 import com.maden.story.adapter.ShowStoryAdapter
+import com.maden.story.model.DownloadPhotoUrl
+import com.maden.story.util.downloadPhoto
 import com.maden.story.viewmodel.ShowStoryModel
 import kotlinx.android.synthetic.main.fragment_show_story.*
+import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 
 class ShowStoryFragment : Fragment() {
@@ -31,7 +34,7 @@ class ShowStoryFragment : Fragment() {
 
 
     private lateinit var showViewModel: ShowStoryModel
-    private val showAdapter = ShowStoryAdapter(arrayListOf())
+    private val showAdapter = ShowStoryAdapter(arrayListOf(),)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,5 +60,12 @@ class ShowStoryFragment : Fragment() {
                 showAdapter.updateShowList(it)
             }
         })
+        /*
+        showViewModel.profilePhoto.observe(viewLifecycleOwner, Observer {
+            showAdapter.downloadPhoto(it)
+        })
+
+         */
+
     }
 }

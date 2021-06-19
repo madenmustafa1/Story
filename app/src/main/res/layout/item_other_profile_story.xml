@@ -83,7 +83,7 @@
                 android:clickable="false"
                 android:focusable="false"
                 android:gravity="clip_vertical"
-                android:inputType="textNoSuggestions"
+                android:inputType="textMultiLine|textNoSuggestions"
                 android:paddingStart="10dp"
 
                 android:paddingTop="5dp"

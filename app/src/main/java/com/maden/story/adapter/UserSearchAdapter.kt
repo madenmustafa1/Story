@@ -3,18 +3,18 @@ package com.maden.story.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.maden.story.R
 import com.maden.story.activity.GLOBAL_CURRENT_FRAGMENT
+import com.maden.story.model.DownloadPhotoUrl
 import com.maden.story.model.SearchData
 import com.maden.story.view.SearchFragmentDirections
 import kotlinx.android.synthetic.main.item_search_user.view.*
 
-class UserSearchAdapter(val userSearchList: ArrayList<SearchData>) :
+class UserSearchAdapter(private val userSearchList: ArrayList<SearchData>) :
     RecyclerView.Adapter<UserSearchAdapter.UserSearchViewHolder>() {
     class UserSearchViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
@@ -33,7 +33,10 @@ class UserSearchAdapter(val userSearchList: ArrayList<SearchData>) :
         holder.view.searchNameSurname.text = userSearchList[position].userName
         holder.view.searchFollowers.text = userSearchList[position].followers
 
-        println(userSearchList[position].userName)
+
+
+
+
         holder.itemView.searchUserProfile.setOnClickListener {
             val profileRef = db.collection("Profile")
             profileRef.whereEqualTo("email", userSearchList[position].email)

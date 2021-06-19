@@ -3,16 +3,15 @@ package com.maden.story.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.maden.story.model.DownloadPhotoUrl
 import com.maden.story.model.FeedData
 
 class ShowStoryModel : ViewModel() {
 
     private val storage = FirebaseStorage.getInstance()
-    val reference = storage.reference
 
     private var db = Firebase.firestore
     private var auth = Firebase.auth
@@ -21,10 +20,14 @@ class ShowStoryModel : ViewModel() {
     val feedDataClass = MutableLiveData<List<FeedData>>()
     private var nameSurname: String? = null
 
-
+    val profilePhoto = MutableLiveData<ArrayList<String>>()
+    var point: Int = 0
     fun getStory() {
         val dbRef = db.collection("Profile")
             .document(auth.currentUser.email.toString())
+
+        val ref = storage.reference
+
         dbRef.get().addOnSuccessListener {
 
             if (it["followed"] != null) {
@@ -36,6 +39,7 @@ class ShowStoryModel : ViewModel() {
                 for (followed in followed) {
                     val nameRef = db.collection("Profile")
 
+
                     nameRef.whereEqualTo("email", followed)
                         .get().addOnSuccessListener {
                             for (name in it) {
@@ -46,9 +50,12 @@ class ShowStoryModel : ViewModel() {
                                     .get().addOnSuccessListener { it ->
 
                                         for (document in it) {
+                                            var downloadUrl: String
 
                                             nameSurname =
                                                 name["name"].toString() + " " + name["surname"].toString()
+                                            downloadUrl = name["photoUrl"].toString()
+
 
                                             if (nameSurname == null) {
                                                 nameSurname = "Unknown"
@@ -60,13 +67,15 @@ class ShowStoryModel : ViewModel() {
                                             val userLike = "" + like.size + " Like"
                                             val uuid = document["uuid"].toString()
                                             val email_PNG_forPhoto =
-                                                document["email"].toString() + ".PNG"
+                                                document["email"].toString()
 
                                             val userFeed = FeedData(
                                                 nameSurname, userTitle,
                                                 userStory, userLike, uuid,
-                                                email_PNG_forPhoto
+                                                email_PNG_forPhoto, downloadUrl
                                             )
+
+
 
                                             val feedList = arrayListOf<FeedData>(userFeed)
                                             feedDataClass.value = feedList

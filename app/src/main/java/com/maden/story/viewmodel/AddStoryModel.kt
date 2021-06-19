@@ -1,7 +1,5 @@
 package com.maden.story.viewmodel
 
-
-
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth

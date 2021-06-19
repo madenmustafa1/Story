@@ -10,13 +10,20 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.maden.story.R
 import com.maden.story.activity.GLOBAL_CURRENT_FRAGMENT
 import com.maden.story.databinding.ItemShowStoryBinding
+import com.maden.story.model.DPU
+import com.maden.story.model.DownloadPhotoUrl
 import com.maden.story.model.FeedData
+import com.maden.story.model.ProfileData
+import com.maden.story.util.downloadPhoto
 import com.maden.story.view.SearchFragmentDirections
 import com.maden.story.view.ShowStoryFragmentDirections
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_show_story.view.*
+import kotlinx.android.synthetic.main.item_show_story.view.likeButton
 
 
 //Layout'tan da değiştirilecek.
@@ -34,21 +41,20 @@ class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         //val view = inflater.inflate(R.layout.item_show_story, parent, false)
-        val view = DataBindingUtil.inflate<ItemShowStoryBinding>(inflater,
-                                                R.layout.item_show_story,
-                                                parent, false)
+        val view = DataBindingUtil.inflate<ItemShowStoryBinding>(
+            inflater,
+            R.layout.item_show_story,
+            parent, false
+        )
         return ShowViewHolder(view)
     }
+
+
 
     override fun onBindViewHolder(holder: ShowViewHolder, position: Int) {
         holder.view.showData = showStoryList[position]
 
-        /*
-        holder.view.userNameText.text = showStoryList[position].userName
-        holder.view.userTitleText.text = showStoryList[position].userTitle
-        holder.view.userStoryText.setText(showStoryList[position].userStory)
-        holder.itemView.userLikeText.text = showStoryList[position].userLike
-         */
+
 
         val dbRef = db.collection("Story")
         dbRef
@@ -153,15 +159,27 @@ class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
     }
 
     private fun nav(view: View) {
-        if(GLOBAL_CURRENT_FRAGMENT == "show_story"){
-            val action = ShowStoryFragmentDirections.actionShowStoryFragmentToOtherUserProfileFragment(otherUserEmail)
+        if (GLOBAL_CURRENT_FRAGMENT == "show_story") {
+            val action =
+                ShowStoryFragmentDirections.actionShowStoryFragmentToOtherUserProfileFragment(
+                    otherUserEmail
+                )
             view.findNavController().navigate(action)
             GLOBAL_CURRENT_FRAGMENT = "other_profile_story"
-        } else if(GLOBAL_CURRENT_FRAGMENT == "search_story"){
+        } else if (GLOBAL_CURRENT_FRAGMENT == "search_story") {
             val action =
-                SearchFragmentDirections.actionSearchFragmentToOtherUserProfileFragment(otherUserEmail)
+                SearchFragmentDirections.actionSearchFragmentToOtherUserProfileFragment(
+                    otherUserEmail
+                )
             view.findNavController().navigate(action)
             GLOBAL_CURRENT_FRAGMENT = "other_profile_story"
         }
     }
+/*
+    fun downloadPhoto(url: ArrayList<String>){
+        //downloadUrl = url
+        notifyDataSetChanged()
+    }
+
+ */
 }

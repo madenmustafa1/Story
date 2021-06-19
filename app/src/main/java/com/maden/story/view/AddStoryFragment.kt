@@ -36,6 +36,8 @@ class AddStoryFragment : Fragment() {
             val title = addFragmentTitleText.text.toString()
             val story = addFragmentStoryText.text.toString()
             addViewModel.share(title, story)
+
         }
     }
+
 }

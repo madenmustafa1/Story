@@ -1,5 +1,10 @@
 package com.maden.story.viewmodel
 
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.provider.MediaStore
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
@@ -11,27 +16,26 @@ import com.google.firebase.storage.FirebaseStorage
 import com.maden.story.model.ProfileAdapterData
 import com.maden.story.model.ProfileData
 
-class UserProfileModel: ViewModel() {
+class UserProfileModel : ViewModel() {
 
     private var db = Firebase.firestore
     private var auth = Firebase.auth
 
-    //private val storage = FirebaseStorage.getInstance()
-    //val reference = storage.reference
+    private val storage = FirebaseStorage.getInstance()
 
     val profileDataClass = MutableLiveData<List<ProfileData>>()
     val profileAdapterDataClass = MutableLiveData<List<ProfileAdapterData>>()
-
-
+    val uProfilePhoto = MutableLiveData<String>()
 
     fun getMyUserProfile() {
+        val ref = storage.reference
 
-        if (auth.currentUser != null){
+        if (auth.currentUser != null) {
             val profileRef = db.collection("Profile")
                 .document(auth.currentUser!!.email!!.toString())
 
             profileRef.get().addOnSuccessListener {
-                if(it != null){
+                if (it != null) {
 
                     val nameSurname = it["name"].toString() + " " +
                             it["surname"].toString()
@@ -44,16 +48,25 @@ class UserProfileModel: ViewModel() {
                     val myProfileData = ProfileData(
                         nameSurname, email, username,
                         followed.size.toString(),
-                        follower.size.toString(),"5")
+                        follower.size.toString(), "5", ""
+                    )
 
                     profileDataClass.value = listOf(myProfileData)
                 }
             }.addOnCompleteListener {
                 getMyPost()
+                ref.child(profileDataClass.value?.get(0)!!.userEmail!!)
+                    .child("profilePhoto")
+                    .downloadUrl.addOnSuccessListener {
+                        if (it != null){
+                            uProfilePhoto.value = it.toString()
+                        }
+                    }
             }
         }
     }
-    //Query.Direction.DESCENDING
+
+
     private fun getMyPost() {
 
         val postRef = db.collection("Story")
@@ -61,8 +74,7 @@ class UserProfileModel: ViewModel() {
             .orderBy("date", Query.Direction.DESCENDING)
             .get().addOnSuccessListener {
                 for (document in it) {
-                    if (document["email"] == auth.currentUser!!.email)
-                    {
+                    if (document["email"] == auth.currentUser!!.email) {
                         val nameSurname = profileDataClass.value?.get(0)?.userNameSurname
                         var like = document["like"] as List<*>
                         val userTitle = document["title"].toString()
@@ -75,7 +87,8 @@ class UserProfileModel: ViewModel() {
                         val myPost = ProfileAdapterData(
                             nameSurname, userTitle,
                             userStory, userLike, uuid,
-                            email_PNG_forPhoto)
+                            email_PNG_forPhoto
+                        )
 
                         val postList = arrayListOf<ProfileAdapterData>(myPost)
                         profileAdapterDataClass.value = postList
@@ -83,5 +96,6 @@ class UserProfileModel: ViewModel() {
                 }
             }
     }
+
 
 }

@@ -6,10 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.maden.story.R
 import com.maden.story.databinding.ItemOtherProfileStoryBinding
-import com.maden.story.databinding.ItemProfileStoryBinding
 import com.maden.story.model.OtherProfileAdapterData
-import com.maden.story.model.OtherProfileData
-import com.maden.story.model.ProfileAdapterData
+
 
 
 class OtherUserProfileAdapter (private val otherProfileStoryList: ArrayList<OtherProfileAdapterData>)

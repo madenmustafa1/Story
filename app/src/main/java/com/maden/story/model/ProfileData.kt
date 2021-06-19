@@ -6,5 +6,6 @@ data class ProfileData(
     val username: String?,
     val followed: String?,
     val follower: String?,
-    val storySize: String?
+    val storySize: String?,
+    val downloadUrl: String?
 )

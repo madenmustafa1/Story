@@ -34,8 +34,10 @@ class SearchModel : ViewModel() {
                         .get().addOnSuccessListener {
                             if (it != null) {
                                 for (nameS in it) {
+                                    var downloadUrl: String
                                     nameSurname = nameS["name"].toString() +
                                             " " + nameS["surname"].toString()
+                                    downloadUrl = nameS["photoUrl"].toString()
 
                                     var like = document["like"] as List<String>
                                     val userTitle = document["title"].toString()
@@ -48,7 +50,7 @@ class SearchModel : ViewModel() {
                                     val userFeed = FeedData(
                                         nameSurname, userTitle,
                                         userStory, userLike, uuid,
-                                        email_PNG_forPhoto
+                                        email_PNG_forPhoto, downloadUrl
                                     )
 
                                     val feedList = arrayListOf<FeedData>(userFeed)

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,15 +21,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.maden.story.R
 import com.maden.story.adapter.UserProfileAdapter
+import com.maden.story.model.DownloadPhotoUrl
+import com.maden.story.util.downloadPhoto
 import com.maden.story.viewmodel.UserProfileModel
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import java.io.ByteArrayOutputStream
-import java.lang.Exception
-import java.util.jar.Manifest
 
 
 class UserProfileFragment : Fragment() {
@@ -47,7 +48,7 @@ class UserProfileFragment : Fragment() {
     }
 
     private lateinit var profileModel: UserProfileModel
-    private val profileAdapter = UserProfileAdapter(arrayListOf())
+    private val profileAdapter = UserProfileAdapter(arrayListOf(), DownloadPhotoUrl(""))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,7 +78,14 @@ class UserProfileFragment : Fragment() {
                 userProfileStoryText.text = it[0].storySize
                 (activity as AppCompatActivity)
                     .supportActionBar?.title = "@" + it[0].username
+
+                //
             }
+        })
+
+        profileModel.uProfilePhoto.observe(viewLifecycleOwner, Observer {
+            userProfilePhoto.downloadPhoto(it)
+            profileAdapter.downloadPhoto(DownloadPhotoUrl(it))
         })
 
         profileModel.profileAdapterDataClass.observe(viewLifecycleOwner, Observer {
@@ -86,6 +94,7 @@ class UserProfileFragment : Fragment() {
             }
         })
     }
+
 
     //####### ####### ####### ####### #######
     //#######  HEPSİ Viewmodel'e geçecek #######
@@ -131,7 +140,8 @@ class UserProfileFragment : Fragment() {
 
     var selectedPicture: Uri? = null
     private val storage = FirebaseStorage.getInstance()
-    val reference = storage.reference
+
+    private var db = Firebase.firestore
     private var auth = Firebase.auth
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
@@ -147,17 +157,45 @@ class UserProfileFragment : Fragment() {
                         userProfilePhoto.setImageBitmap(bitmap)
 
 
-
                         val ref = storage.reference
                         val bit = bitmap
                         val baos = ByteArrayOutputStream()
                         bit.compress(Bitmap.CompressFormat.JPEG, 80, baos)
                         val data = baos.toByteArray()
-                        ref.child(auth.currentUser!!.email!!).child("profilePhoto").putBytes(data).addOnSuccessListener {
-                            println("Başarılı")
-                        }.addOnFailureListener{
-                            println(it.localizedMessage)
-                        }
+                        ref.child(auth.currentUser!!.email!!).child("profilePhoto").putBytes(data)
+                            .addOnSuccessListener {
+                                println("Başarılı")
+                                var photoUrl: String = ""
+
+
+                                ref.child(auth.currentUser.email)
+                                    .child("profilePhoto")
+                                    .downloadUrl.addOnSuccessListener {
+                                        if (it != null) {
+                                            photoUrl = it.toString()
+                                            println(it)
+                                        }
+                                    }.addOnCompleteListener {
+                                        photoUrl?.let {
+                                            var dataU = hashMapOf("photoUrl" to photoUrl)
+
+                                            db.collection("Profile")
+                                                .document(auth.currentUser.email)
+                                                .set(dataU, SetOptions.merge())
+                                                .addOnSuccessListener {
+
+
+                                                }
+                                                .addOnFailureListener {
+
+                                                }
+                                        }
+                                    }
+
+
+                            }.addOnFailureListener {
+                                println(it.localizedMessage)
+                            }
 
                     } else {
                         val bitmap = MediaStore.Images.Media.getBitmap(
