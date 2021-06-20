@@ -73,13 +73,13 @@ class UserProfileFragment : Fragment() {
         profileModel.profileDataClass.observe(viewLifecycleOwner, Observer {
             it?.let {
                 userProfileNameSurname.text = it[0].userNameSurname
+                println(it[0].userNameSurname)
+                println("asd")
                 userProfileFollowedText.text = it[0].followed
                 userProfileFollowerText.text = it[0].follower
                 userProfileStoryText.text = it[0].storySize
                 (activity as AppCompatActivity)
                     .supportActionBar?.title = "@" + it[0].username
-
-                //
             }
         })
 

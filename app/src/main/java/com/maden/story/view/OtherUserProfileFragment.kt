@@ -12,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.maden.story.R
 import com.maden.story.adapter.OtherUserProfileAdapter
+import com.maden.story.model.DownloadPhotoUrl
+import com.maden.story.util.downloadPhoto
 import com.maden.story.viewmodel.OtherUserProfileModel
 import kotlinx.android.synthetic.main.fragment_other_user_profile.*
 import kotlinx.coroutines.delay
@@ -33,7 +35,7 @@ class OtherUserProfileFragment : Fragment() {
     }
 
     private lateinit var otherProfileModel: OtherUserProfileModel
-    private val otherProfileAdapter = OtherUserProfileAdapter(arrayListOf())
+    private val otherProfileAdapter = OtherUserProfileAdapter(arrayListOf(), DownloadPhotoUrl(""))
     private var otherUserEmail: String? = null
 
 
@@ -63,11 +65,12 @@ class OtherUserProfileFragment : Fragment() {
         otherProfileModel.otherProfileDataClass.observe(viewLifecycleOwner, Observer {
             it?.let {
                 otherUserProfileNameSurname.text = it[0].userNameSurname
+
                 otherUserProfileFollowedText.text = it[0].followed
                 otherUserProfileFollowerText.text = it[0].follower
                 otherUserProfileStoryText.text = it[0].storySize
                 (activity as AppCompatActivity)
-                    .supportActionBar?.title = "@"+ it[0].username
+                    .supportActionBar?.title = "@" + it[0].username
 
                 if (it[0].areUFollowing == "false") {
                     otherFollowButton.text = "Follow"
@@ -80,6 +83,13 @@ class OtherUserProfileFragment : Fragment() {
         otherProfileModel.otherProfileAdapterDataClass.observe(viewLifecycleOwner, Observer {
             it?.let {
                 otherProfileAdapter.updateOtherProfile(it)
+            }
+        })
+
+        otherProfileModel.otherProfilePhotoDownloadUrl.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                otherUserProfilePhoto.downloadPhoto(it)
+                otherProfileAdapter.downloadPhoto(DownloadPhotoUrl(it))
             }
         })
     }

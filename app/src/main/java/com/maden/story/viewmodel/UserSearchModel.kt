@@ -33,16 +33,19 @@ class UserSearchModel : ViewModel() {
                     searchList.clear()
 
                     for (document in it) {
+                        var downloadUrl: String
+
                         //FOLLOWERS OLACAK !!!!!!!
                         val followed = document["followed"] as List<*>
                         val nameSurname = document["name"].toString() +
                                 " " + document["surname"].toString()
                         val email = document["email"].toString()
+                        downloadUrl = document["photoUrl"].toString()
 
                         val searchData = SearchData(
                             userName = nameSurname,
                             followers = followed.size.toString(),
-                            email = email
+                            email = email, downloadUrl
                         )
 
                         searchList.add(searchData)

@@ -1,33 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="160dp"
-    android:layout_height="160dp"
-    android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/searchUserProfile"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/userphoto" />
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/searchNameSurname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="Name Surname"
-        android:layout_gravity="center" />
+    <data>
+        <variable
+            name="userSearchData"
+            type="com.maden.story.model.SearchData" />
+    </data>
 
-    <TextView
-        android:id="@+id/searchFollowers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Followers"
-        android:textAlignment="center"
-        android:layout_marginTop="2dp"
-        android:layout_gravity="center" />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="160dp"
+        android:layout_height="200dp"
+        android:orientation="vertical">
+
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/searchUserProfile"
+            android:layout_width="100dp"
+            android:layout_height="170dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_profile_place_holder"
+            android:scaleType="centerCrop"
+            android:downloadUrl="@{userSearchData.downloadPhotoUrl}"
+            />
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:text="@{userSearchData.userName}"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="2dp"
+            android:text="@{userSearchData.followers}"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+</layout>

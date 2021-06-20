@@ -5,13 +5,10 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.maden.story.model.DownloadPhotoUrl
 import com.maden.story.model.FeedData
 
 class ShowStoryModel : ViewModel() {
 
-    private val storage = FirebaseStorage.getInstance()
 
     private var db = Firebase.firestore
     private var auth = Firebase.auth
@@ -21,17 +18,14 @@ class ShowStoryModel : ViewModel() {
     private var nameSurname: String? = null
 
     val profilePhoto = MutableLiveData<ArrayList<String>>()
-    var point: Int = 0
+
     fun getStory() {
         val dbRef = db.collection("Profile")
-            .document(auth.currentUser.email.toString())
+            .document(auth.currentUser!!.email!!.toString())
 
-        val ref = storage.reference
 
         dbRef.get().addOnSuccessListener {
-
             if (it["followed"] != null) {
-                val i = it
 
                 followed = it["followed"] as List<String>
                 nameSurname = null

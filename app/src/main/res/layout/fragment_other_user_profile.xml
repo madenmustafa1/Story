@@ -16,13 +16,12 @@
         android:orientation="horizontal"
         >
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/otherUserProfilePhoto"
-            android:layout_width="130dp"
+            android:layout_width="80dp"
             android:layout_height="130dp"
-            android:src="@drawable/userphoto"
-
-            android:layout_marginTop="12dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile_place_holder"
             android:layout_marginStart="7dp"
             />
 
@@ -38,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textSize="20sp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="25dp"
 
                 />
 

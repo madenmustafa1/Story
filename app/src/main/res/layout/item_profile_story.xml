@@ -26,12 +26,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="45dp"
                 android:layout_height="80dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
-                android:foreground="@drawable/rounded_userprofile_photo"
                 android:src="@drawable/ic_profile_place_holder"
                 android:scaleType="centerCrop"
                 android:downloadUrl="@{profilePhoto.downloadUrl}" />

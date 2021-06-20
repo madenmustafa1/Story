@@ -3,20 +3,23 @@ package com.maden.story.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.maden.story.R
 import com.maden.story.activity.GLOBAL_CURRENT_FRAGMENT
-import com.maden.story.model.DownloadPhotoUrl
+import com.maden.story.databinding.ItemSearchStoryBinding
+import com.maden.story.databinding.ItemSearchUserBinding
 import com.maden.story.model.SearchData
 import com.maden.story.view.SearchFragmentDirections
 import kotlinx.android.synthetic.main.item_search_user.view.*
 
 class UserSearchAdapter(private val userSearchList: ArrayList<SearchData>) :
     RecyclerView.Adapter<UserSearchAdapter.UserSearchViewHolder>() {
-    class UserSearchViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class UserSearchViewHolder(var view: ItemSearchUserBinding)
+        : RecyclerView.ViewHolder(view.root) {
 
     }
 
@@ -25,14 +28,17 @@ class UserSearchAdapter(private val userSearchList: ArrayList<SearchData>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserSearchViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_search_user, parent, false)
+        //val view = inflater.inflate(R.layout.item_search_user, parent, false)
+        val view = DataBindingUtil.inflate<ItemSearchUserBinding>(inflater,
+            R.layout.item_search_user,
+            parent, false)
+
         return UserSearchViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: UserSearchViewHolder, position: Int) {
-        holder.view.searchNameSurname.text = userSearchList[position].userName
-        holder.view.searchFollowers.text = userSearchList[position].followers
 
+        holder.view.userSearchData = userSearchList[position]
 
 
 
@@ -43,7 +49,7 @@ class UserSearchAdapter(private val userSearchList: ArrayList<SearchData>) :
                 .get().addOnSuccessListener {
                     for (name in it) {
                         otherUserEmail = name["email"].toString()
-                        nav(holder.view)
+                        nav(holder.view.root)
                     }
                 }
         }

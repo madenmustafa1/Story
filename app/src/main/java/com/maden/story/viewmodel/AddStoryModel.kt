@@ -1,10 +1,16 @@
 package com.maden.story.viewmodel
 
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.maden.story.R
+import com.maden.story.view.AddStoryFragmentDirections
 import java.util.*
 
 class AddStoryModel: ViewModel() {
@@ -35,10 +41,9 @@ class AddStoryModel: ViewModel() {
             db.collection("Story")
                 .add(data)
                 .addOnSuccessListener {
-                    println("Story")
-                    //val action = AddStoryFragmentDirections.actionAddStoryFragmentToShowStoryFragment()
-                    //Navigation.findNavController(context, R.id.main_navigation).navigate(action)
-                    //findNavController(R.id.main_navigation).navigate(action)
+
+
+
 
                 }
                 .addOnFailureListener{

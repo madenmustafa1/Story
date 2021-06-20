@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.maden.story.R
 import com.maden.story.viewmodel.AddStoryModel
 import kotlinx.android.synthetic.main.fragment_add_story.*
@@ -36,6 +37,9 @@ class AddStoryFragment : Fragment() {
             val title = addFragmentTitleText.text.toString()
             val story = addFragmentStoryText.text.toString()
             addViewModel.share(title, story)
+
+            val action = AddStoryFragmentDirections.actionAddStoryFragmentToShowStoryFragment()
+            Navigation.findNavController(view).navigate(action)
 
         }
     }

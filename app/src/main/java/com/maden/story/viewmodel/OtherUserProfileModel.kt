@@ -8,9 +8,9 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.maden.story.model.OtherProfileAdapterData
 import com.maden.story.model.OtherProfileData
-
 
 
 class OtherUserProfileModel : ViewModel() {
@@ -18,15 +18,17 @@ class OtherUserProfileModel : ViewModel() {
     private var db = Firebase.firestore
     private var auth = Firebase.auth
 
-    //private val storage = FirebaseStorage.getInstance()
+    private val storage = FirebaseStorage.getInstance()
     //val reference = storage.reference
 
     val otherProfileDataClass = MutableLiveData<List<OtherProfileData>>()
     val otherProfileAdapterDataClass = MutableLiveData<List<OtherProfileAdapterData>>()
     val uFollowing = MutableLiveData<String>()
+    val otherProfilePhotoDownloadUrl = MutableLiveData<String>()
 
     fun getOtherUserProfile(email: String) {
         uFollowing.value = "false"
+        val ref = storage.reference
 
         val profileRef = db.collection("Profile")
             .document(email)
@@ -61,6 +63,14 @@ class OtherUserProfileModel : ViewModel() {
                         uFollowing.value
                     )
                     otherProfileDataClass.value = listOf(myProfileData)
+
+                    ref.child(otherProfileDataClass.value?.get(0)!!.userEmail!!)
+                        .child("profilePhoto")
+                        .downloadUrl.addOnSuccessListener {
+                            if (it != null) {
+                                otherProfilePhotoDownloadUrl.value = it.toString()
+                            }
+                        }
                 }
             }
         }.addOnCompleteListener {

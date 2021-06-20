@@ -41,12 +41,9 @@ class SearchAdapter(private val searchStoryList: ArrayList<FeedData>) :
 
     override fun onBindViewHolder(holder: SearchAdapterViewHolder, position: Int) {
         holder.view.searchData = searchStoryList[position]
-        /*
-        holder.view.userNameText.text = searchStoryList[position].userNameSurname
-        holder.view.userTitleText.text = searchStoryList[position].userTitle
-        holder.view.userSearchStoryText.setText(searchStoryList[position].userStory)
-        holder.itemView.userLikeText.text = searchStoryList[position].userLike
-         */
+
+
+
 
         val dbRef = db.collection("Story")
         dbRef

@@ -6,6 +6,9 @@
     <data>
         <variable
             name="otherProfileData" type="com.maden.story.model.OtherProfileAdapterData" />
+        <variable
+            name="otherProfilePhoto"
+            type="com.maden.story.model.DownloadPhotoUrl" />
     </data>
 
 
@@ -19,13 +22,15 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imageViewMyProfile"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="45dp"
+                android:layout_height="80dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:src="@drawable/userphoto" />
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_profile_place_holder"
+                android:scaleType="centerCrop"
+                android:downloadUrl="@{otherProfilePhoto.downloadUrl}"
+                />
 
             <TextView
                 android:layout_width="wrap_content"

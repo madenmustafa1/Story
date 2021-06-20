@@ -12,10 +12,6 @@ import com.maden.story.model.FeedData
 class SearchModel : ViewModel() {
 
     private var db = Firebase.firestore
-    private var auth = Firebase.auth
-
-    private val storage = FirebaseStorage.getInstance()
-    val reference = storage.reference
 
     lateinit var followed: List<String>
     val feedDataClass = MutableLiveData<List<FeedData>>()
