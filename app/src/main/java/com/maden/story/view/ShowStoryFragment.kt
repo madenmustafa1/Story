@@ -12,11 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.maden.story.R
 import com.maden.story.activity.GLOBAL_CURRENT_FRAGMENT
 import com.maden.story.adapter.ShowStoryAdapter
-import com.maden.story.model.DownloadPhotoUrl
-import com.maden.story.util.downloadPhoto
-import com.maden.story.viewmodel.ShowStoryModel
+import com.maden.story.viewmodel.ShowStoryViewModel
 import kotlinx.android.synthetic.main.fragment_show_story.*
-import kotlinx.android.synthetic.main.fragment_user_profile.*
 
 
 class ShowStoryFragment : Fragment() {
@@ -33,7 +30,7 @@ class ShowStoryFragment : Fragment() {
     }
 
 
-    private lateinit var showViewModel: ShowStoryModel
+    private lateinit var showViewModel: ShowStoryViewModel
     private val showAdapter = ShowStoryAdapter(arrayListOf(),)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +39,7 @@ class ShowStoryFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = "Story"
         GLOBAL_CURRENT_FRAGMENT = "show_story"
 
-        showViewModel = ViewModelProvider(this).get(ShowStoryModel::class.java)
+        showViewModel = ViewModelProvider(this).get(ShowStoryViewModel::class.java)
         showViewModel.getStory()
 
 

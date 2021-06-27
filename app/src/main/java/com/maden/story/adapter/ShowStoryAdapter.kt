@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.item_show_story.view.*
 import kotlinx.android.synthetic.main.item_show_story.view.likeButton
 
 
-//Layout'tan da değiştirilecek.
+//Yorum kısmı entegre edilecek.
 class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
     RecyclerView.Adapter<ShowStoryAdapter.ShowViewHolder>() {
 
@@ -34,7 +34,8 @@ class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
     private var auth = Firebase.auth
     private lateinit var otherUserEmail: String
 
-    class ShowViewHolder(var view: ItemShowStoryBinding) : RecyclerView.ViewHolder(view.root) {
+    class ShowViewHolder(var view: ItemShowStoryBinding) :
+        RecyclerView.ViewHolder(view.root) {
 
     }
 
@@ -49,23 +50,26 @@ class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
         return ShowViewHolder(view)
     }
 
-
+    private val dbRef = db.collection("Story")
 
     override fun onBindViewHolder(holder: ShowViewHolder, position: Int) {
         holder.view.showData = showStoryList[position]
 
 
 
-        val dbRef = db.collection("Story")
-        dbRef
-            .whereEqualTo("uuid", showStoryList[position].uuid)
+        holder.view.commentButtonShowStory.setOnClickListener {
+            getComments(showStoryList[position].uuid!!, it)
+        }
+
+
+        //Like Control
+        dbRef.whereEqualTo("uuid", showStoryList[position].uuid)
             .get().addOnSuccessListener {
                 for (i in it) {
                     val newRef = db.collection("Story").document(i.id)
                     newRef.get().addOnSuccessListener {
 
                         var followed = it["like"] as List<String>
-
                         for (f in followed) {
                             if (f == auth.currentUser.email) {
                                 holder.itemView.likeButton.setImageResource(R.drawable.ic_like_full)
@@ -75,7 +79,7 @@ class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
                 }
             }
 
-        //GET UUID
+        //GET Other story
         holder.itemView.imageViewShowStory.setOnClickListener {
             val emailRef = db.collection("Story")
             emailRef
@@ -88,14 +92,14 @@ class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
                             .get().addOnSuccessListener {
                                 for (name in it) {
                                     otherUserEmail = name["email"].toString()
-                                    nav(holder.view.root)
+                                    navToOtherStory(holder.view.root)
                                 }
                             }
                     }
                 }
         }
 
-        //LIKE CONTROL
+        //LIKE
         holder.view.likeButton.setOnClickListener {
             val dbRef = db.collection("Story")
             dbRef.whereEqualTo("uuid", showStoryList[position].uuid)
@@ -129,7 +133,6 @@ class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
         //Go to other user profile
         holder.itemView.imageViewShowStory.setOnClickListener {
             val emailRef = db.collection("Story")
-
             emailRef
                 .whereEqualTo("uuid", showStoryList[position].uuid)
                 .get().addOnSuccessListener {
@@ -140,12 +143,15 @@ class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
                             .get().addOnSuccessListener {
                                 for (name in it) {
                                     otherUserEmail = name["email"].toString()
-                                    nav(holder.view.root)
                                 }
+                            }.addOnCompleteListener {
+                                navToOtherStory(holder.view.root)
                             }
                     }
                 }
         }
+
+
     }
 
     override fun getItemCount(): Int {
@@ -158,7 +164,7 @@ class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
         notifyDataSetChanged()
     }
 
-    private fun nav(view: View) {
+    private fun navToOtherStory(view: View) {
         if (GLOBAL_CURRENT_FRAGMENT == "show_story") {
             val action =
                 ShowStoryFragmentDirections.actionShowStoryFragmentToOtherUserProfileFragment(
@@ -175,11 +181,14 @@ class ShowStoryAdapter(private val showStoryList: ArrayList<FeedData>) :
             GLOBAL_CURRENT_FRAGMENT = "other_profile_story"
         }
     }
-/*
-    fun downloadPhoto(url: ArrayList<String>){
-        //downloadUrl = url
-        notifyDataSetChanged()
-    }
 
- */
+    private fun getComments(postUUID: String?, view: View) {
+
+
+
+        val action =
+            ShowStoryFragmentDirections.actionShowStoryFragmentToCommentFragment(postUUID!!)
+        view.findNavController().navigate(action)
+        GLOBAL_CURRENT_FRAGMENT = "comment_story"
+    }
 }

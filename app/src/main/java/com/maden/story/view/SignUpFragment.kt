@@ -28,6 +28,7 @@ class SignUpFragment : Fragment() {
     private var surname : String? = null
     private var email : String? = null
     private var password : String? = null
+    private var username: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +66,7 @@ class SignUpFragment : Fragment() {
     fun signUpF(view: View){
         name = nameTextSignUp.text.toString()
         surname = surnameTextSignUp.text.toString()
+        username = usernameTextSignUp.text.toString()
         email =  emailTextSignUp.text.toString()
         password = passwordTextSignUp.text.toString()
 
@@ -76,7 +78,7 @@ class SignUpFragment : Fragment() {
 
         if( name != null && surname != null &&
             email != null && password != null &&
-            gender != null){
+            gender != null && username != null ){
 
             auth.createUserWithEmailAndPassword(email!!, password!!)
                 .addOnCompleteListener {
@@ -113,9 +115,11 @@ class SignUpFragment : Fragment() {
         val profile = hashMapOf(
             "name" to name,
             "surname" to surname,
+            "username" to username,
             "email" to email,
             "gender" to gender,
-            "user" to "user"
+            "user" to "user",
+            "followed" to listOf<String>()
         )
 
         //intentLogin()

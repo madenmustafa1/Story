@@ -9,7 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.maden.story.R
-import com.maden.story.viewmodel.AddStoryModel
+import com.maden.story.activity.GLOBAL_CURRENT_FRAGMENT
+import com.maden.story.viewmodel.AddStoryViewModel
 import kotlinx.android.synthetic.main.fragment_add_story.*
 
 
@@ -26,12 +27,14 @@ class AddStoryFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_add_story, container, false)
     }
 
-    private lateinit var addViewModel: AddStoryModel
+    private lateinit var addViewModel: AddStoryViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = "Story"
-        addViewModel = ViewModelProvider(this).get(AddStoryModel::class.java)
+        GLOBAL_CURRENT_FRAGMENT = "add_story"
+
+        addViewModel = ViewModelProvider(this).get(AddStoryViewModel::class.java)
 
         addFragmentShareButton.setOnClickListener {
             val title = addFragmentTitleText.text.toString()

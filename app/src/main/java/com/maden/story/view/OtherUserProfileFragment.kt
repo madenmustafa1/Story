@@ -11,10 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.maden.story.R
+import com.maden.story.activity.GLOBAL_CURRENT_FRAGMENT
 import com.maden.story.adapter.OtherUserProfileAdapter
 import com.maden.story.model.DownloadPhotoUrl
 import com.maden.story.util.downloadPhoto
-import com.maden.story.viewmodel.OtherUserProfileModel
+import com.maden.story.viewmodel.OtherUserProfileViewModel
 import kotlinx.android.synthetic.main.fragment_other_user_profile.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -34,7 +35,7 @@ class OtherUserProfileFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_other_user_profile, container, false)
     }
 
-    private lateinit var otherProfileModel: OtherUserProfileModel
+    private lateinit var otherProfileModel: OtherUserProfileViewModel
     private val otherProfileAdapter = OtherUserProfileAdapter(arrayListOf(), DownloadPhotoUrl(""))
     private var otherUserEmail: String? = null
 
@@ -42,12 +43,13 @@ class OtherUserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar?.title = ""
+        GLOBAL_CURRENT_FRAGMENT = "other_profile_story"
 
         arguments?.let {
             otherUserEmail = OtherUserProfileFragmentArgs.fromBundle(it).otherUserEmail
         }
 
-        otherProfileModel = ViewModelProvider(this).get(OtherUserProfileModel::class.java)
+        otherProfileModel = ViewModelProvider(this).get(OtherUserProfileViewModel::class.java)
 
         if (otherUserEmail != null && otherUserEmail != "") {
             otherProfileModel.getOtherUserProfile(otherUserEmail!!)

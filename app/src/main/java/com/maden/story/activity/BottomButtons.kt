@@ -26,7 +26,7 @@ class BottomButtons : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+//"comment_story"
         homeButton.setOnClickListener {
             if(GLOBAL_CURRENT_FRAGMENT != "show_story"){
                 when (GLOBAL_CURRENT_FRAGMENT) {
@@ -47,6 +47,11 @@ class BottomButtons : Fragment() {
                     }
                     "other_profile_story" -> {
                         val action = OtherUserProfileFragmentDirections.actionOtherUserProfileFragmentToShowStoryFragment()
+                        Navigation.findNavController(requireActivity(), R.id.main_navigation).navigate(action)
+                        GLOBAL_CURRENT_FRAGMENT = "show_story"
+                    }
+                    "comment_story" -> {
+                        val action = CommentFragmentDirections.actionCommentFragmentToShowStoryFragment()
                         Navigation.findNavController(requireActivity(), R.id.main_navigation).navigate(action)
                         GLOBAL_CURRENT_FRAGMENT = "show_story"
                     }
@@ -75,6 +80,11 @@ class BottomButtons : Fragment() {
                     }
                     "other_profile_story" -> {
                         val action = OtherUserProfileFragmentDirections.actionOtherUserProfileFragmentToSearchFragment()
+                        Navigation.findNavController(requireActivity(), R.id.main_navigation).navigate(action)
+                        GLOBAL_CURRENT_FRAGMENT = "search_story"
+                    }
+                    "comment_story" -> {
+                        val action = CommentFragmentDirections.actionCommentFragmentToSearchFragment()
                         Navigation.findNavController(requireActivity(), R.id.main_navigation).navigate(action)
                         GLOBAL_CURRENT_FRAGMENT = "search_story"
                     }
@@ -107,6 +117,11 @@ class BottomButtons : Fragment() {
                         Navigation.findNavController(requireActivity(), R.id.main_navigation).navigate(action)
                         GLOBAL_CURRENT_FRAGMENT = "add_story"
                     }
+                    "comment_story" -> {
+                        val action = CommentFragmentDirections.actionCommentFragmentToAddStoryFragment()
+                        Navigation.findNavController(requireActivity(), R.id.main_navigation).navigate(action)
+                        GLOBAL_CURRENT_FRAGMENT = "add_story"
+                    }
                 }
             }
         }
@@ -133,6 +148,11 @@ class BottomButtons : Fragment() {
                     }
                     "other_profile_story" -> {
                         val action = OtherUserProfileFragmentDirections.actionOtherUserProfileFragmentToUserProfileFragment()
+                        Navigation.findNavController(requireActivity(), R.id.main_navigation).navigate(action)
+                        GLOBAL_CURRENT_FRAGMENT = "profile_story"
+                    }
+                    "comment_story" -> {
+                        val action = CommentFragmentDirections.actionCommentFragmentToUserProfileFragment()
                         Navigation.findNavController(requireActivity(), R.id.main_navigation).navigate(action)
                         GLOBAL_CURRENT_FRAGMENT = "profile_story"
                     }

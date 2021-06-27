@@ -15,8 +15,8 @@ import com.maden.story.R
 import com.maden.story.activity.GLOBAL_CURRENT_FRAGMENT
 import com.maden.story.adapter.SearchAdapter
 import com.maden.story.adapter.UserSearchAdapter
-import com.maden.story.viewmodel.SearchModel
-import com.maden.story.viewmodel.UserSearchModel
+import com.maden.story.viewmodel.SearchViewModel
+import com.maden.story.viewmodel.UserSearchViewModel
 import kotlinx.android.synthetic.main.fragment_search.*
 
 
@@ -30,8 +30,8 @@ class SearchFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_search, container, false) }
 
-    private lateinit var searchViewModel: SearchModel
-    private lateinit var userSearchModel: UserSearchModel
+    private lateinit var searchViewModel: SearchViewModel
+    private lateinit var userSearchModel: UserSearchViewModel
 
     private val searchAdapter = SearchAdapter(arrayListOf())
     private val userSearchAdapter = UserSearchAdapter(arrayListOf())
@@ -42,10 +42,10 @@ class SearchFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.title = "Story"
         GLOBAL_CURRENT_FRAGMENT = "search_story"
 
-        searchViewModel = ViewModelProvider(this).get(SearchModel::class.java)
+        searchViewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
         searchViewModel.searchStory()
 
-        userSearchModel = ViewModelProvider(this).get(UserSearchModel::class.java)
+        userSearchModel = ViewModelProvider(this).get(UserSearchViewModel::class.java)
 
         searchRecyclerView.layoutManager = LinearLayoutManager(context)
         searchRecyclerView.adapter = searchAdapter

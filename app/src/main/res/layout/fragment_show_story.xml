@@ -14,4 +14,29 @@
         android:id="@+id/showStoryRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <EditText
+        android:layout_gravity="end"
+        android:id="@+id/userSearchStoryText"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:hint="..."
+        android:textSize="20dp"
+        android:textColor="#323232"
+        android:gravity="clip_vertical"
+        android:inputType="textMultiLine|textNoSuggestions"
+
+        android:overScrollMode="always"
+        android:scrollbarStyle="insideInset"
+        android:scrollbars="vertical"
+        android:background="@drawable/text_corners"
+
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="2dp" />
 </FrameLayout>

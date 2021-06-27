@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="commentData" type="com.maden.story.model.CommentData" />
+        <variable
+            name="profilePhoto"
+            type="com.maden.story.model.DownloadPhotoUrl" />
+
+    </data>
+
+<LinearLayout
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".view.CommentFragment"
+    android:orientation="horizontal">
+    <!--
+        android:downloadUrl="@{profilePhoto.downloadUrl}"
+    -->
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="45dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:src="@drawable/ic_profile_place_holder"
+        android:scaleType="centerCrop"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:text="@{commentData.username}"
+
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/text_corners"
+
+            android:clickable="false"
+            android:fillViewport="true"
+            android:focusable="false"
+            android:gravity="center_vertical"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:maxLines="1"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:scrollHorizontally="true"
+            android:hint="Username"
+
+            android:textColor="#2B2B2B"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <!--
+        android:text="@{showData.userTitle}"
+        -->
+
+        <EditText
+            android:text="@{commentData.comment}"
+
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/text_corners"
+            android:clickable="false"
+            android:focusable="false"
+            android:gravity="clip_vertical"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:paddingStart="10dp"
+
+            android:paddingTop="5dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="5dp"
+            android:scrollbars="vertical"
+            android:hint="Comment"
+            android:textColor="#323232"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+            <ImageView
+                android:id="@+id/likeButton"
+                android:layout_width="20dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/likeicon" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+</layout>

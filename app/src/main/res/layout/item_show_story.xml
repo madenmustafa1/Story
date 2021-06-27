@@ -2,11 +2,9 @@
 
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android">
-
     <data>
         <variable
             name="showData" type="com.maden.story.model.FeedData" />
-
     </data>
 
 
@@ -113,7 +111,7 @@
                 />
 
             <ImageView
-                android:id="@+id/commentButton"
+                android:id="@+id/commentButtonShowStory"
                 android:layout_width="28dp"
                 android:layout_height="39dp"
                 android:layout_marginStart="2dp"

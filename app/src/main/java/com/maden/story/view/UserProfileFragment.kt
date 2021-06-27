@@ -29,7 +29,7 @@ import com.maden.story.R
 import com.maden.story.adapter.UserProfileAdapter
 import com.maden.story.model.DownloadPhotoUrl
 import com.maden.story.util.downloadPhoto
-import com.maden.story.viewmodel.UserProfileModel
+import com.maden.story.viewmodel.UserProfileViewModel
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import java.io.ByteArrayOutputStream
 
@@ -47,7 +47,7 @@ class UserProfileFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
 
-    private lateinit var profileModel: UserProfileModel
+    private lateinit var profileModel: UserProfileViewModel
     private val profileAdapter = UserProfileAdapter(arrayListOf(), DownloadPhotoUrl(""))
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class UserProfileFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.title = ""
 
-        profileModel = ViewModelProvider(this).get(UserProfileModel::class.java)
+        profileModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
         profileModel.getMyUserProfile()
 
         userProfileRecyclerView.layoutManager = LinearLayoutManager(context)

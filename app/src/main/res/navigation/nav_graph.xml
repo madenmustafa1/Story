@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_showStoryFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_showStoryFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
     </fragment>
     <fragment
         android:id="@+id/addStoryFragment"
@@ -40,6 +43,9 @@
         <action
             android:id="@+id/action_addStoryFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_addStoryFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
     </fragment>
     <fragment
         android:id="@+id/otherUserProfileFragment"
@@ -61,6 +67,9 @@
         <argument
             android:name="otherUserEmail"
             app:argType="string" />
+        <action
+            android:id="@+id/action_otherUserProfileFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -79,6 +88,9 @@
         <action
             android:id="@+id/action_searchFragment_to_userProfileFragment"
             app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
     </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
@@ -97,5 +109,35 @@
         <action
             android:id="@+id/action_userProfileFragment_to_showStoryFragment"
             app:destination="@id/showStoryFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.maden.story.view.CommentFragment"
+        android:label="fragment_comment"
+        tools:layout="@layout/fragment_comment" >
+        <action
+            android:id="@+id/action_commentFragment_to_showStoryFragment"
+            app:destination="@id/showStoryFragment" />
+        <argument
+            android:name="postUUID"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_commentFragment_to_showStoryFragment2"
+            app:destination="@id/showStoryFragment" />
+        <action
+            android:id="@+id/action_commentFragment_to_addStoryFragment"
+            app:destination="@id/addStoryFragment" />
+        <action
+            android:id="@+id/action_commentFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_commentFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_commentFragment_to_otherUserProfileFragment"
+            app:destination="@id/otherUserProfileFragment" />
     </fragment>
 </navigation>
