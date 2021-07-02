@@ -33,8 +33,7 @@ class GetCommentViewModel: ViewModel() {
                 if (it != null){
                     for (i in it){
 
-                        // buradan yorumlar çekilecek.
-                        //i["comment"]
+                        
 
 
 
